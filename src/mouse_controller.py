@@ -5,6 +5,7 @@ class MouseController:
         self.screen_width, self.screen_height = pyautogui.size()
         self.is_left_button_down = False
         self.is_right_button_down = False
+        pyautogui.PAUSE = 0
 
     def move_cursor(self, x, y):
         x = max(1, min(x * self.screen_width, self.screen_width - 1))

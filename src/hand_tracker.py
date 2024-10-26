@@ -8,7 +8,7 @@ class HandTracker:
         self.mp_drawing = mp.solutions.drawing_utils
         self.mp_drawing_styles = mp.solutions.drawing_styles
         self.hands = self.mp_hands.Hands(
-            model_complexity=1,
+            model_complexity=0,
             max_num_hands=1,
             min_detection_confidence=0.8,
             min_tracking_confidence=0.8
@@ -27,17 +27,17 @@ class HandTracker:
             self.mp_drawing_styles.get_default_hand_connections_style())
     
     def __run_on_gesture(self, gesture, coordinates):
-        coordinates.x = abs(1 - coordinates.x)
+        inverse_coordinate_x = abs(1 - coordinates.x)
         if gesture == GestureRecognizer.MOUSE_BUTTONS_UP:
-            self.mouse_controller.move_cursor(coordinates.x, coordinates.y)
+            self.mouse_controller.move_cursor(inverse_coordinate_x, coordinates.y)
             self.mouse_controller.buttons_up()
             print("mouse up")
         elif gesture == GestureRecognizer.MOUSE_LEFT_DOWN:
-            self.mouse_controller.move_cursor(coordinates.x, coordinates.y)
+            self.mouse_controller.move_cursor(inverse_coordinate_x, coordinates.y)
             self.mouse_controller.left_button_down()
             print("left down")
         elif gesture == GestureRecognizer.MOUSE_RIGHT_DOWN:
-            self.mouse_controller.move_cursor(coordinates.x, coordinates.y)
+            self.mouse_controller.move_cursor(inverse_coordinate_x, coordinates.y)
             self.mouse_controller.right_button_down()
             print("right down")
             
