@@ -8,8 +8,11 @@ class MouseController:
         pyautogui.PAUSE = 0
 
     def move_cursor(self, x, y):
-        x = max(1, min(x * self.screen_width, self.screen_width - 1))
-        y = max(1, min(y * self.screen_height, self.screen_height - 1))
+        x = (x - 0.2) / 0.6
+        y = (y - 0.2) / 0.6
+
+        x = max(1, min(x * self.screen_width, self.screen_width - 2))
+        y = max(1, min(y * self.screen_height, self.screen_height - 2))
         pyautogui.moveTo(x, y)
 
     def left_button_down(self):
