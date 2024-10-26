@@ -10,6 +10,9 @@ class GestureRecognizer:
 
     def __init__(self):
         self.mp_hands = mp.solutions.hands
+        self.cursor_smoothing_factor = 0.8
+        self.prev_x_coordinate = 0
+        self.prev_y_coordinate = 0
 
     def __get_distance(self, point1, point2):
         return math.sqrt((point1.x - point2.x)**2 + (point1.y - point2.y)**2)
@@ -51,7 +54,13 @@ class GestureRecognizer:
 
         ring_mcp = hand_landmarks.landmark[self.mp_hands.HandLandmark.RING_FINGER_MCP]
 
-        return ring_mcp
+        smoother_x_coordinate = self.prev_x_coordinate * self.cursor_smoothing_factor + ring_mcp.x * (1 - self.cursor_smoothing_factor)
+        smoother_y_coordinate = self.prev_y_coordinate * self.cursor_smoothing_factor + ring_mcp.y * (1 - self.cursor_smoothing_factor)
+
+        self.prev_x_coordinate = smoother_x_coordinate
+        self.prev_y_coordinate = smoother_y_coordinate
+
+        return {'x': smoother_x_coordinate, 'y': smoother_y_coordinate}
     
 
     def recognize(self, hand_landmarks):

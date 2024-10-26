@@ -27,20 +27,20 @@ class HandTracker:
             self.mp_drawing_styles.get_default_hand_connections_style())
     
     def __run_on_gesture(self, gesture, coordinates):
-        inverse_coordinate_x = abs(1 - coordinates.x)
+        inverse_coordinate_x = abs(1 - coordinates['x'])
+        
         if gesture == GestureRecognizer.MOUSE_BUTTONS_UP:
-            self.mouse_controller.move_cursor(inverse_coordinate_x, coordinates.y)
+            self.mouse_controller.move_cursor(inverse_coordinate_x, coordinates['y'])
             self.mouse_controller.buttons_up()
             print("mouse up")
         elif gesture == GestureRecognizer.MOUSE_LEFT_DOWN:
-            self.mouse_controller.move_cursor(inverse_coordinate_x, coordinates.y)
+            self.mouse_controller.move_cursor(inverse_coordinate_x, coordinates['y'])
             self.mouse_controller.left_button_down()
             print("left down")
         elif gesture == GestureRecognizer.MOUSE_RIGHT_DOWN:
-            self.mouse_controller.move_cursor(inverse_coordinate_x, coordinates.y)
+            self.mouse_controller.move_cursor(inverse_coordinate_x, coordinates['y'])
             self.mouse_controller.right_button_down()
             print("right down")
-            
 
     def run(self, is_debug=False):
         while self.cap.isOpened():
