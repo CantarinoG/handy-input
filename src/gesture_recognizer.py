@@ -64,7 +64,7 @@ class GestureRecognizer:
     
 
     def recognize(self, hand_landmarks):
-        if(self.__is_mouse_gesture):
+        if(self.__is_mouse_gesture(hand_landmarks)):
             if(self.__is_mouse_left_down(hand_landmarks)):
                 return self.MOUSE_LEFT_DOWN
             elif(self.__is_mouse_right_down(hand_landmarks)):
