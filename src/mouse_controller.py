@@ -5,6 +5,7 @@ class MouseController:
         self.screen_width, self.screen_height = pyautogui.size()
         self.has_clicked_left = False
         self.has_clicked_right = False
+        self.frames_clicked_left = 0
         pyautogui.PAUSE = 0
 
     def move_cursor(self, x, y):
@@ -16,9 +17,12 @@ class MouseController:
         pyautogui.moveTo(x, y)
 
     def left_button_down(self):
+        self.frames_clicked_left += 1
         if not self.has_clicked_left:
             pyautogui.click()
             self.has_clicked_left = True
+        if self.frames_clicked_left >= 10:
+            pyautogui.mouseDown(button='left')
 
     def right_button_down(self):
         if not self.has_clicked_right:
@@ -28,3 +32,5 @@ class MouseController:
     def buttons_up(self):
         self.has_clicked_right = False
         self.has_clicked_left = False
+        self.frames_clicked_left = 0
+        pyautogui.mouseUp(button='left')
