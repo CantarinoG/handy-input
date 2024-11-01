@@ -34,3 +34,9 @@ class MouseController:
         self.has_clicked_left = False
         self.frames_clicked_left = 0
         pyautogui.mouseUp(button='left')
+
+    def scroll_down(self, scroll_value):
+        pyautogui.scroll(-scroll_value)
+
+    def scroll_up(self, scroll_value):
+        pyautogui.scroll(scroll_value)

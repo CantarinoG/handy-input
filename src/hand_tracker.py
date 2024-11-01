@@ -41,6 +41,12 @@ class HandTracker:
             self.mouse_controller.move_cursor(inverse_coordinate_x, coordinates['y'])
             self.mouse_controller.right_button_down()
             print("right down")
+        elif gesture == GestureRecognizer.SCROLL_UP:
+            self.mouse_controller.scroll_up(1)
+            print("scroll up")
+        elif gesture == GestureRecognizer.SCROLL_DOWN:
+            self.mouse_controller.scroll_down(1)
+            print("scroll down")
 
     def run(self, is_debug=False):
         while self.cap.isOpened():
