@@ -9,6 +9,7 @@
 3. [Uso](#uso)
     - [Mover o Cursor](#mover-o-cursor)
     - [Clicar](#clicar)
+    - [Arrastar](#arrastar)
     - [Clicar com Botão Direito](#clicar-com-botão-direito)
     - [Scroll](#scroll)
 4. [Demonstração](#demonstração)
@@ -111,6 +112,10 @@ O dedo indicador deve estar esticado e reto, enquanto os demais dedos estão dob
 Para clicar na tela, a partir do gesto de movimento, junte a ponta do dedo indicador com a ponta do polegar:
 
 ![Gesto de Clique](docs/click.png)
+
+### Arrastar
+
+Para arrastar, mantenha o gesto de clicar por um tempo. Uma vez que estiver arrastando, basta manter esse gesto enquanto move a mão. Para soltar, volte a mão para o gesto de mover o cursor.
 
 ### Clicar com Botão Direito
 
