@@ -6,8 +6,12 @@
     - [Pré-Requisitos](#pré-requisitos)
     - [Download do Projeto](#download-do-projeto)
     - [Configuração do Ambiente Virtual](#configuração-do-ambiente-virtual)
-    - [Execução do Projeto](#execução-do-projeto)
-5. [Uso](#uso)
+3. [Uso](#uso)
+    - [Mover o Cursor](#mover-o-cursor)
+    - [Clicar](#clicar)
+    - [Clicar com Botão Direito](#clicar-com-botão-direito)
+    - [Scroll](#scroll)
+4. [Demonstração](#demonstração)
 
 ## Introdução
 
@@ -82,10 +86,46 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
-### Execução do Projeto:
+## Uso
 
-* Para executar o projeto, execute o comando:
+Para executar o projeto, execute o comando:
 
 ```
 python src/main.py
 ```
+
+Pressione <kbd>Ctrl</kbd> + <kbd>C</kbd> no terminal para encerrar a execução.
+
+Os gestos devem ser feito com a palma da mão na direção da webcam.
+
+### Mover o cursor
+
+Para mover o cursor, mova a mão enquanto faz o seguinte gesto:
+
+![Gesto de Mover Cursor](docs/move_cursor.png)
+
+O dedo indicador deve estar esticado e reto, enquanto os demais dedos estão dobrados.
+
+### Clicar
+
+Para clicar na tela, a partir do gesto de movimento, junte a ponta do dedo indicador com a ponta do polegar:
+
+![Gesto de Clique](docs/click.png)
+
+### Clicar com Botão Direito
+
+Para clicar na tela com o botão direito, a partir do gesto de movimento, junte a ponta do dedo médio com a ponta do polegar:
+
+![Gesto de Clique com Botão Direito](docs/right_click.png)
+
+### Scroll
+
+Para scrollar para cima, os dedos indicador, médio e anelar devem estar esticados, retos, para cima, enquanto o midinho e o polegar estão dobrados:
+
+![Gesto de Scroll para Cima](docs/scroll_up.png)
+
+Para scrollar para baixo, os dedos indicador, médio e anelar agora ficam para dobrados, mas ainda para cima:
+
+![Gesto de Scroll para Baixo](docs/scroll_down.png)
+
+## Demonstração
