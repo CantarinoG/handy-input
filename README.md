@@ -134,3 +134,5 @@ Para scrollar para baixo, os dedos indicador, médio e anelar agora ficam para d
 ![Gesto de Scroll para Baixo](docs/scroll_down.png)
 
 ## Demonstração
+
+Um vídeo de demonstração do projeto em execução pode ser visto [aqui](./docs/demo.mp4).
