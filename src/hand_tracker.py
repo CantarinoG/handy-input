@@ -3,7 +3,19 @@ import mediapipe as mp
 from gesture_recognizer import GestureRecognizer
 
 class HandTracker:
+    """
+    Classe responsável por rastrear a mão do usuário através da webcam e converter os gestos em comandos do mouse.
+    Utiliza o MediaPipe para detectar os pontos de referência da mão e o GestureRecognizer para interpretar os gestos.
+    """
+
     def __init__(self, gesture_recognizer, mouse_controller):
+        """
+        Inicializa o rastreador de mão.
+
+        Args:
+            gesture_recognizer: Instância de GestureRecognizer para reconhecimento dos gestos
+            mouse_controller: Instância de MouseController para controle do mouse
+        """
         self.mp_hands = mp.solutions.hands
         self.mp_drawing = mp.solutions.drawing_utils
         self.mp_drawing_styles = mp.solutions.drawing_styles
@@ -18,6 +30,13 @@ class HandTracker:
         self.mouse_controller = mouse_controller
 
     def __show_debug_annotations(self, image, hand_landmarks):
+        """
+        Desenha as anotações de debug na imagem, mostrando os landmarks e conexões da mão.
+
+        Args:
+            image: Frame da webcam onde as anotações serão desenhadas
+            hand_landmarks: Lista de pontos de referência da mão detectados
+        """
         for hand_landmarks in hand_landmarks:
             self.mp_drawing.draw_landmarks(
             image,
@@ -27,6 +46,14 @@ class HandTracker:
             self.mp_drawing_styles.get_default_hand_connections_style())
     
     def __run_on_gesture(self, gesture, coordinates):
+        """
+        Executa a ação correspondente ao gesto detectado.
+        Inverte a coordenada X para corresponder ao movimento natural da mão (espelhado).
+
+        Args:
+            gesture: Constante que identifica o gesto reconhecido
+            coordinates: Dicionário com as coordenadas x,y normalizadas do cursor
+        """
         inverse_coordinate_x = abs(1 - coordinates['x'])
         
         if gesture == GestureRecognizer.MOUSE_BUTTONS_UP:
@@ -49,6 +76,13 @@ class HandTracker:
             print("scroll down")
 
     def run(self, is_debug=False):
+        """
+        Inicia o loop principal de rastreamento da mão.
+        Captura frames da webcam, processa-os para detectar a mão e executa as ações correspondentes.
+        
+        Args:
+            is_debug (bool): Se True, mostra uma janela com visualização da detecção da mão
+        """
         while self.cap.isOpened():
           
             success, image = self.cap.read()
