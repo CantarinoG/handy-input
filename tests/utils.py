@@ -4,7 +4,21 @@ import numpy as np
 import time
 
 def extract_frames(video_path, num_frames, output_folder):
+    """
+    Extrai frames de um arquivo de vídeo e os salva como imagens individuais.
 
+    Esta função abre um arquivo de vídeo, extrai um número específico de frames 
+    distribuídos uniformemente ao longo do vídeo e os salva como arquivos de imagem JPG.
+
+    Args:
+        video_path (str): Caminho para o arquivo de vídeo a ser processado
+        num_frames (int): Número de frames a serem extraídos do vídeo
+        output_folder (str): Diretório onde os frames extraídos serão salvos
+
+    Os frames são salvos com nomes no formato: timestamp_XXXX_frame.jpg, onde:
+    - timestamp é o momento da extração em segundos desde epoch
+    - XXXX é o número sequencial do frame com 4 dígitos
+    """
     os.makedirs(output_folder, exist_ok=True)
     
     cap = cv2.VideoCapture(video_path)

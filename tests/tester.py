@@ -3,8 +3,21 @@ import cv2
 import mediapipe as mp
 
 class Tester:
+    """
+    Classe responsável por testar o reconhecimento de gestos em um conjunto de imagens.
+    
+    Esta classe carrega imagens de um ou mais diretórios, processa cada uma delas usando o 
+    MediaPipe Hands e o GestureRecognizer, e calcula métricas de performance como
+    acurácia, precisão, recall e F1-score.
+    """
 
     def __init__(self, gesture_recognizer):
+        """
+        Inicializa o Tester com um reconhecedor de gestos.
+
+        Args:
+            gesture_recognizer: Instância de GestureRecognizer que será usada para classificar os gestos
+        """
         self.gesture_recognizer = gesture_recognizer
         self.dataset = []
         self.mp_hands = mp.solutions.hands
@@ -17,6 +30,13 @@ class Tester:
         return
     
     def load_images(self, folder, label):
+        """
+        Carrega imagens de um diretório e as associa a um rótulo específico.
+
+        Args:
+            folder (str): Caminho para o diretório contendo as imagens
+            label (int): Rótulo que será associado a todas as imagens do diretório
+        """
         for filename in os.listdir(folder):
             if filename.endswith(('.png', '.jpg', '.jpeg')):
                 image_path = os.path.join(folder, filename)
@@ -27,6 +47,10 @@ class Tester:
                 })
 
     def classify_images(self):
+        """
+        Processa todas as imagens do dataset usando MediaPipe Hands e classifica os gestos.
+        Para cada imagem, detecta landmarks da mão e usa o gesture_recognizer para determinar o gesto.
+        """
         counter = 1
         for data in self.dataset:
 
@@ -43,6 +67,12 @@ class Tester:
                 data['detected_label'] = gesture
 
     def get_detection_accuracy(self):
+        """
+        Calcula a acurácia geral da detecção de mãos.
+
+        Returns:
+            float: Proporção de imagens onde uma mão foi detectada em relação ao total
+        """
         detected = 0
         for data in self.dataset:
             if data['detected_label'] != -1:
@@ -50,6 +80,15 @@ class Tester:
         return detected/len(self.dataset)
     
     def get_detection_accuracy_by_gesture(self, label):
+        """
+        Calcula a acurácia da detecção de mãos para um gesto específico.
+
+        Args:
+            label (int): Rótulo do gesto para calcular a acurácia
+
+        Returns:
+            float: Proporção de detecções corretas para o gesto específico
+        """
         detected = 0
         total = 0
         for data in self.dataset:
@@ -58,18 +97,17 @@ class Tester:
                 if data['detected_label'] == label:
                     detected += 1
         return detected/total
-
-    def get_gesture_accuracy(self):
-        right_gestures = 0
-        detected_hands = 0
-        for data in self.dataset:
-            if data['detected_label'] != -1:
-                detected_hands += 1
-                if data['real_label'] == data['detected_label']:
-                    right_gestures += 1
-        return right_gestures/detected_hands
     
     def get_detected_precision(self, label):
+        """
+        Calcula a precisão para um gesto específico considerando apenas mãos detectadas.
+
+        Args:
+            label (int): Rótulo do gesto para calcular a precisão
+
+        Returns:
+            float: Precisão do reconhecimento para o gesto específico
+        """
         true_positives = 0
         false_positives = 0
         for data in self.dataset:
@@ -81,6 +119,15 @@ class Tester:
         return true_positives / (true_positives + false_positives)
     
     def get_detected_recall(self, label):
+        """
+        Calcula o recall para um gesto específico considerando apenas mãos detectadas.
+
+        Args:
+            label (int): Rótulo do gesto para calcular o recall
+
+        Returns:
+            float: Recall do reconhecimento para o gesto específico
+        """
         true_positives = 0
         false_negatives = 0
         for data in self.dataset:
@@ -92,6 +139,15 @@ class Tester:
         return true_positives / (true_positives + false_negatives)
                 
     def get_detected_f1_score(self, label):
+        """
+        Calcula o F1-score para um gesto específico considerando apenas mãos detectadas.
+
+        Args:
+            label (int): Rótulo do gesto para calcular o F1-score
+
+        Returns:
+            float: F1-score do reconhecimento para o gesto específico
+        """
         precision = self.get_detected_precision(label)
         recall = self.get_detected_recall(label)
         score = 2 * ((precision * recall)/(precision + recall))
