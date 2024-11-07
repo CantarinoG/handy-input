@@ -97,7 +97,9 @@ python src/main.py
 
 Pressione <kbd>Ctrl</kbd> + <kbd>C</kbd> no terminal para encerrar a execução.
 
-Os gestos devem ser feito com a palma da mão na direção da webcam.
+Os gestos devem ser feito com a palma da mão na direção da webcam, numa distância entre cerca de 30cm a 60cm.
+
+Sua experiência pode variar de acordo com fatores como iluminação e qualidade de imagem da webcam.
 
 ### Mover o cursor
 
