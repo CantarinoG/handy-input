@@ -10,11 +10,12 @@ class GestureRecognizer:
     """
 
     # Constantes que definem os diferentes gestos reconhecidos
-    MOUSE_BUTTONS_UP = 0    
-    MOUSE_RIGHT_DOWN = 1   
-    MOUSE_LEFT_DOWN = 2     
-    SCROLL_UP = 3         
-    SCROLL_DOWN = 4       
+    NO_GESTURE = 0
+    MOUSE_BUTTONS_UP = 1
+    MOUSE_RIGHT_DOWN = 2   
+    MOUSE_LEFT_DOWN = 3    
+    SCROLL_UP = 4        
+    SCROLL_DOWN = 5       
 
     def __init__(self):
         """
@@ -194,3 +195,5 @@ class GestureRecognizer:
                 return self.SCROLL_UP
             else:
                 return self.SCROLL_DOWN
+        else:
+            return self.NO_GESTURE
