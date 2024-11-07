@@ -131,7 +131,7 @@ Para scrollar para cima, os dedos indicador, médio e anelar devem estar esticad
 
 ![Gesto de Scroll para Cima](docs/scroll_up.png)
 
-Para scrollar para baixo, os dedos indicador, médio e anelar agora ficam para dobrados, mas ainda para cima:
+Para scrollar para baixo, faça a mesma posição, porém apontando para baixo:
 
 ![Gesto de Scroll para Baixo](docs/scroll_down.png)
 
