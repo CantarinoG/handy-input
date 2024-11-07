@@ -126,12 +126,12 @@ class GestureRecognizer:
         self.prev_y_coordinate = smoother_y_coordinate
 
         return {'x': smoother_x_coordinate, 'y': smoother_y_coordinate}
-    
 
-    def __is_scroll_gesture(self, hand_landmarks):
+    def __is_scroll_up(self, hand_landmarks):
         """
-        Verifica se o gesto corresponde ao controle de scroll.
-        O gesto é reconhecido quando o mindinho está dobrado e os dedos indicador, médio e anelar estão levantados.
+        Verifica se o gesto corresponde ao scroll para cima.
+        O gesto é reconhecido quando o dedo mindinho está dobrado para baixo
+        e os dedos indicador, médio e anelar estão esticados para cima.
         
         Args:
             hand_landmarks: Lista de pontos de referência da mão detectados
@@ -153,25 +153,38 @@ class GestureRecognizer:
         ring_tip = hand_landmarks.landmark[self.mp_hands.HandLandmark.RING_FINGER_TIP]
         ring_mcp = hand_landmarks.landmark[self.mp_hands.HandLandmark.RING_FINGER_MCP]
 
-        return pinky_tip.y > pinky_pip.y and ring_tip.y < ring_mcp.y and index_tip.y < index_mcp.y and middle_tip.y < middle_mcp.y
+        middle_tip = hand_landmarks.landmark[self.mp_hands.HandLandmark.MIDDLE_FINGER_TIP]
+        middle_pip = hand_landmarks.landmark[self.mp_hands.HandLandmark.MIDDLE_FINGER_PIP]
 
-    def __is_scroll_up(self, hand_landmarks):
+        return pinky_tip.y > pinky_pip.y and ring_tip.y < ring_mcp.y and index_tip.y < index_mcp.y and middle_tip.y < middle_mcp.y and middle_tip.y < middle_pip.y
+
+    def __is_scroll_down(self, hand_landmarks):
         """
-        Verifica se o gesto de scroll indica movimento para cima.
-        A direção é determinada pela posição do dedo médio em relação à sua articulação.
+        Verifica se o gesto corresponde ao scroll para baixo.
+        O gesto é reconhecido quando os dedos indicador, médio e anelar 
+        estão esticados para baixo.
         
         Args:
             hand_landmarks: Lista de pontos de referência da mão detectados
             
         Returns:
-            bool: True se o gesto indicar scroll para cima, False caso contrário
+            bool: True se o gesto for reconhecido, False caso contrário
         """
         hand_landmarks = hand_landmarks[0]
+
+        index_tip = hand_landmarks.landmark[self.mp_hands.HandLandmark.INDEX_FINGER_TIP]
+        index_mcp = hand_landmarks.landmark[self.mp_hands.HandLandmark.INDEX_FINGER_MCP]
+
+        middle_tip = hand_landmarks.landmark[self.mp_hands.HandLandmark.MIDDLE_FINGER_TIP]
+        middle_mcp = hand_landmarks.landmark[self.mp_hands.HandLandmark.MIDDLE_FINGER_MCP]
+
+        ring_tip = hand_landmarks.landmark[self.mp_hands.HandLandmark.RING_FINGER_TIP]
+        ring_mcp = hand_landmarks.landmark[self.mp_hands.HandLandmark.RING_FINGER_MCP]
 
         middle_tip = hand_landmarks.landmark[self.mp_hands.HandLandmark.MIDDLE_FINGER_TIP]
         middle_pip = hand_landmarks.landmark[self.mp_hands.HandLandmark.MIDDLE_FINGER_PIP]
 
-        return middle_tip.y < middle_pip.y
+        return ring_tip.y > ring_mcp.y and index_tip.y > index_mcp.y and middle_tip.y > middle_mcp.y and middle_tip.y > middle_pip.y
 
     def recognize(self, hand_landmarks):
         """
@@ -190,10 +203,8 @@ class GestureRecognizer:
                 return self.MOUSE_RIGHT_DOWN
             else:
                 return self.MOUSE_BUTTONS_UP
-        elif(self.__is_scroll_gesture(hand_landmarks)):
-            if(self.__is_scroll_up(hand_landmarks)):
-                return self.SCROLL_UP
-            else:
-                return self.SCROLL_DOWN
-        else:
-            return self.NO_GESTURE
+        elif(self.__is_scroll_up(hand_landmarks)):
+            return self.SCROLL_UP
+        elif(self.__is_scroll_down(hand_landmarks)):
+            return self.SCROLL_DOWN
+        return self.NO_GESTURE
